@@ -32,7 +32,13 @@ To quit interactive mode, type `exit` or `Ctrl-D`.
 websh# uname -a
 Linux 9da3a1b93c29 4.15.0-55-generic #60-Ubuntu SMP Tue Jul 2 18:22:20 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux
 
-websh# 
+websh# figlet -f slant websh
+                __         __  
+ _      _____  / /_  _____/ /_ 
+| | /| / / _ \/ __ \/ ___/ __ \
+| |/ |/ /  __/ /_/ (__  ) / / /
+|__/|__/\___/_.___/____/_/ /_/ 
+                               
 websh# exit
 [you@your-computer]$ 
 ```
