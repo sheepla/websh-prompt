@@ -69,10 +69,10 @@ func Main(args []string) exitCode {
 			return exitCodeOK
 		}
 
-		p := &client.Param{
+		p := client.Param{
 			Code: code,
 		}
-		result, err := client.Post(*p)
+		result, err := client.Post(p)
 		if err != nil {
 			continue
 		}
