@@ -1,6 +1,21 @@
+<div align="right">
+
+![CI](https://github.com/sheepla/websh-prompt/actions/workflows/ci.yml/badge.svg)
+![Relase](https://github.com/sheepla/websh-prompt/actions/workflows/release.yml/badge.svg)
+
+</div>
+
+<div align="center">
+
 # 💻 websh-prompt
 
+</div>
+
+<div align="center">
+
 A command line [websh](https://github.com/jiro4989/websh) client with bash-like interactive UI
+
+</div>
 
 ## Features
 
