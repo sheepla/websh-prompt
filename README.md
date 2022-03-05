@@ -66,9 +66,39 @@ You can download executable binary from release page
 
 > [Latest Release](https://github.com/sheepla/websh-prompt/releases/latest)
 
+### Use GitHub release installer tools
+
+These tools make it easy to install executable binaries from GitHub Release.
+
+with [ghg](https://github.com/Songmu/ghg):
+
+```bash
+ghg get sheepla/websh-prompt  # Install
+ls -l $(ghg bin)/websh-prompt # It will exists executable
+```
+
+with [relma](https://github.com/jiro4989/relma):
+
+Copy download link URL from [Latest Release](https://github.com/sheepla/websh-prompt/releases/latest) page, then run below.
+
+
+```bash
+relma init                           # Setup
+relma install {{DOWNLOAD_LINK_URL}}  # Install
+ls -l $(ghg bin)/websh-prompt        # It will exists executable
+```
+
+with [gh-install](https://github.com/redraw/gh-install)
+
+```bash
+gh install sheepla/websh-prompt # Install
+ls -l ~/.local/bin/websh-prompt # It will exists executable
+```
+
 ### Build from source
 
 Clone this repository then run `go install`.
+Developing on `v1.17.7 linux/amd64`.
 
 ## Special Thanks
 
@@ -78,3 +108,6 @@ Clone this repository then run `go install`.
 
 [MIT](./LICENSE)
 
+## Author
+
+[Sheepla](https://github.com/sheepla)
