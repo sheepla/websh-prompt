@@ -15,6 +15,9 @@
 
 A command line [websh](https://github.com/jiro4989/websh) client with bash-like interactive UI
 
+![](https://img.shields.io/static/v1?label=Language&message=Go&color=blue&style=flat-square)
+![](https://img.shields.io/static/v1?label=License&message=MIT&color=blue&style=flat-square)
+
 </div>
 
 ## Features
