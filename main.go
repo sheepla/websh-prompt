@@ -5,6 +5,7 @@ import (
 	"os"
 
 	"github.com/jessevdk/go-flags"
+	"github.com/mattn/go-colorable"
 	"github.com/peterh/liner"
 	"github.com/sheepla/websh-prompt/client"
 )
@@ -25,6 +26,11 @@ const (
 type options struct {
 	Version bool `short:"V" long:"version" description:"Show version"`
 }
+
+var (
+	stdout = colorable.NewColorableStdout()
+	stderr = colorable.NewColorableStderr()
+)
 
 func main() {
 	os.Exit(int(Main(os.Args[1:])))
@@ -69,18 +75,20 @@ func Main(args []string) exitCode {
 			return exitCodeOK
 		}
 
-		p := &client.Param{
+		p := client.Param{
 			Code: code,
 		}
-		result, err := client.Post(*p)
+		result, err := client.Post(p)
 		if err != nil {
 			continue
 		}
 		if result.Stdout != "" {
-			fmt.Fprintln(os.Stdout, result.Stdout)
+			fmt.Fprintln(stdout, result.Stdout)
 		}
 		if result.Stderr != "" {
-			fmt.Fprintln(os.Stderr, result.Stderr)
+			fmt.Fprintln(stderr, result.Stderr)
 		}
+
+		line.AppendHistory(code)
 	}
 }

@@ -93,5 +93,5 @@ func Post(p Param) (*Result, error) {
 		return nil, err
 	}
 
-	return &result, err
+	return &result, nil
 }
