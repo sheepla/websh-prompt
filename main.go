@@ -39,6 +39,8 @@ func main() {
 func Main(args []string) exitCode {
 	var opts options
 	parser := flags.NewParser(&opts, flags.Default)
+	parser.Name = appName
+	parser.Usage = appUsage
 	args, err := parser.ParseArgs(args)
 	if err != nil {
 		if flags.WroteHelp(err) {
@@ -49,13 +51,15 @@ func Main(args []string) exitCode {
 		}
 	}
 
+	if opts.Version {
+		fmt.Printf("%s v%s\n", appName, appVersion)
+		return exitCodeOK
+	}
+
 	if len(args) >= 1 {
 		fmt.Fprintln(os.Stderr, "Too many arguments.")
 		return exitCodeErr
 	}
-
-	parser.Name = appName
-	parser.Usage = appUsage
 
 	line := liner.NewLiner()
 	defer line.Close()
