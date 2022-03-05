@@ -5,7 +5,7 @@ A command line [websh](https://github.com/jiro4989/websh) client with bash-like 
 ## Features
 
 - Run commands on the websh environment without huge Docker image
-- Supports bash / GNU Readline like editing, console clearing (`Ctrl-L`), history searching (`Ctrl-R`)
+- Supports bash / GNU Readline like editing, console clearing (`Ctrl-L`), history searching (`Ctrl-R`), and `Tab` completion
 
 ## Usage
 
@@ -51,6 +51,12 @@ To see the line editing key bindings, see the README on [peterh/liner](https://g
 ### History retension
 
 The command line execution history is saved in `websh-prompt-history.txt` under the temporary directory of your system. When you start the program, the history is loaded and you can edit the history and re-execute.
+
+### Built in commands
+
+- `help`: Show help message.
+- `exit`: Quit interactive UI
+- `version`: Show version
 
 ## Installation
 
