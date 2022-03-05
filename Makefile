@@ -4,8 +4,8 @@ COVERAGE_OUT := .test/cover.out
 COVERAGE_HTML := .test/cover.html
 
 .PHONY: fmt
-fmt: gofumpt
-	gofumpt ./...
+fmt:
+	gofumpt
 
 .PHONY: lint
 lint: staticcheck
