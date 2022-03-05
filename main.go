@@ -21,8 +21,9 @@ const (
 
 const helpMessage = `
 COMMANDS
-    exit  Quit interactive UI
-    help  Show help message
+    exit    Quit interactive UI
+    help    Show help message
+    version Show version
 
 KEY BINDINGS
   Ctrl-A, Home          Move cursor to beginning of line
