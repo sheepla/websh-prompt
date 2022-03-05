@@ -5,10 +5,10 @@ COVERAGE_HTML := .test/cover.html
 
 .PHONY: fmt
 fmt:
-	gofumpt
+	gofumpt -l -w .
 
 .PHONY: lint
-lint: staticcheck
+lint:
 	staticcheck ./...
 
 .PHONY: build
