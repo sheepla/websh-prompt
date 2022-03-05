@@ -2,7 +2,9 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"os"
+	"path/filepath"
 
 	"github.com/jessevdk/go-flags"
 	"github.com/mattn/go-colorable"
@@ -32,6 +34,11 @@ var (
 	stderr = colorable.NewColorableStderr()
 )
 
+var (
+	historyFileName = fmt.Sprintf("%s-history.txt", appName)
+	historyFile     = filepath.Join(os.TempDir(), historyFileName)
+)
+
 func main() {
 	os.Exit(int(Main(os.Args[1:])))
 }
@@ -46,7 +53,7 @@ func Main(args []string) exitCode {
 		if flags.WroteHelp(err) {
 			return exitCodeOK
 		} else {
-			fmt.Fprintln(os.Stderr, "Argument parsing failed.")
+			log.Println("Argument parsing failed.")
 			return exitCodeErr
 		}
 	}
@@ -57,7 +64,7 @@ func Main(args []string) exitCode {
 	}
 
 	if len(args) >= 1 {
-		fmt.Fprintln(os.Stderr, "Too many arguments.")
+		log.Println("Too many arguments.")
 		return exitCodeErr
 	}
 
@@ -68,20 +75,31 @@ func Main(args []string) exitCode {
 func repl() exitCode {
 	line := liner.NewLiner()
 	defer line.Close()
+
+	// Set liner option
 	line.SetCtrlCAborts(true)
+	line.SetMultiLineMode(true)
+
+	// Load history file
+	if f, err := os.Open(historyFile); err == nil {
+		line.ReadHistory(f)
+	}
+
+	fmt.Printf("%s v%s\nType `help` to show help message. Type `exit` to quit.\n\n", appName, appVersion)
 
 	for {
 		code, err := line.Prompt("websh# ")
 		if err != nil {
-			fmt.Fprintln(os.Stderr, err)
+			log.Println(err)
 			return exitCodeErr
 		}
+
 		if code == "" {
 			continue
 		}
 
 		if code == "exit" {
-			return exitCodeOK
+			break
 		}
 
 		p := client.Param{
@@ -100,4 +118,13 @@ func repl() exitCode {
 
 		line.AppendHistory(code)
 	}
+
+	// Write history into file
+	if f, err := os.Create(historyFile); err != nil {
+		log.Println("Error writiing history file:", err)
+	} else {
+		line.WriteHistory(f)
+	}
+
+	return exitCodeOK
 }
