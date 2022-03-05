@@ -50,6 +50,14 @@ To see the line editing key bindings, see the README on [peterh/liner](https://g
 
 ## Installation
 
+### Download executable binary
+
+You can download executable binary from release page
+
+> [Latest Release](https://github.com/sheepla/websh-prompt/releases/latest)
+
+### Build from source
+
 Clone this repository then run `go install`.
 
 ## Special Thanks
