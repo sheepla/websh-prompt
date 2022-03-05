@@ -54,11 +54,15 @@ type exitCode int
 
 const (
 	exitCodeOK exitCode = iota
-	exitCodeErr
+	exitCodeErrArgs
+	exitCodeErrPrompt
+	exitCodeErrPing
+	exitCodeErrPost
 )
 
 type options struct {
 	Version bool `short:"V" long:"version" description:"Show version"`
+	Test    bool `short:"t" long:"test" description:"Test websh server status"`
 }
 
 var (
@@ -88,7 +92,7 @@ func Main(args []string) exitCode {
 			return exitCodeOK
 		} else {
 			log.Println("Argument parsing failed.")
-			return exitCodeErr
+			return exitCodeErrArgs
 		}
 	}
 
@@ -97,9 +101,19 @@ func Main(args []string) exitCode {
 		return exitCodeOK
 	}
 
+	if opts.Test {
+		result, err := client.Ping()
+		if err != nil {
+			log.Println(err)
+			return exitCodeErrPing
+		}
+		fmt.Println(result.Status)
+		return exitCodeOK
+	}
+
 	if len(args) >= 1 {
 		log.Println("Too many arguments.")
-		return exitCodeErr
+		return exitCodeErrArgs
 	}
 
 	e := repl()
@@ -139,7 +153,7 @@ func repl() exitCode {
 		code, err := line.Prompt("websh# ")
 		if err != nil {
 			log.Println(err)
-			return exitCodeErr
+			return exitCodeErrPrompt
 		}
 
 		if code == "" {
