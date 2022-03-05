@@ -2,7 +2,12 @@
 
 ![CI](https://github.com/sheepla/websh-prompt/actions/workflows/ci.yml/badge.svg)
 ![Relase](https://github.com/sheepla/websh-prompt/actions/workflows/release.yml/badge.svg)
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/sheepla/websh-prompt?style=flat-square)
+
+<a href="https://github.com/sheepla/websh-prompt/releases/latest">
+
+![Latest Release](https://img.shields.io/github/v/release/sheepla/websh-prompt?style=flat-square)
+
+</a>
 
 </div>
 
