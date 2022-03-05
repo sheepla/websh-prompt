@@ -1,0 +1,20 @@
+mode: set
+github.com/sheepla/websh-prompt/client/client.go:34.30,41.2 2 1
+github.com/sheepla/websh-prompt/client/client.go:43.34,46.16 3 1
+github.com/sheepla/websh-prompt/client/client.go:49.2,49.27 1 1
+github.com/sheepla/websh-prompt/client/client.go:53.2,56.16 4 1
+github.com/sheepla/websh-prompt/client/client.go:59.2,59.21 1 1
+github.com/sheepla/websh-prompt/client/client.go:46.16,48.3 1 0
+github.com/sheepla/websh-prompt/client/client.go:49.27,51.3 1 0
+github.com/sheepla/websh-prompt/client/client.go:56.16,58.3 1 0
+github.com/sheepla/websh-prompt/client/client.go:62.41,65.2 2 1
+github.com/sheepla/websh-prompt/client/client.go:67.31,71.2 1 1
+github.com/sheepla/websh-prompt/client/client.go:73.37,75.16 2 1
+github.com/sheepla/websh-prompt/client/client.go:79.2,80.16 2 1
+github.com/sheepla/websh-prompt/client/client.go:84.2,85.16 2 1
+github.com/sheepla/websh-prompt/client/client.go:88.2,92.41 4 1
+github.com/sheepla/websh-prompt/client/client.go:96.2,96.21 1 1
+github.com/sheepla/websh-prompt/client/client.go:75.16,77.3 1 0
+github.com/sheepla/websh-prompt/client/client.go:80.16,82.3 1 0
+github.com/sheepla/websh-prompt/client/client.go:85.16,87.3 1 0
+github.com/sheepla/websh-prompt/client/client.go:92.41,94.3 1 0
