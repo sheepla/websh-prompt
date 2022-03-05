@@ -5,7 +5,7 @@ A command line [websh](https://github.com/jiro4989/websh) client with bash-like 
 ## Features
 
 - Run commands on the websh environment without huge Docker image
-- Supports bash / GNU Readline like editing, console clearing (`Ctrl-L`), history searching (`Ctrl-R`), and `Tab` completion
+- Supports bash / GNU Readline like line editing, console clearing (`Ctrl-L`), history searching (`Ctrl-R`), and `Tab` completion
 
 ## Usage
 
@@ -76,4 +76,5 @@ Clone this repository then run `go install`.
 
 ## LICENSE
 
-MIT
+[MIT](./LICENSE)
+
