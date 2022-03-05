@@ -88,5 +88,7 @@ func Main(args []string) exitCode {
 		if result.Stderr != "" {
 			fmt.Fprintln(stderr, result.Stderr)
 		}
+
+		line.AppendHistory(code)
 	}
 }
