@@ -61,6 +61,11 @@ func Main(args []string) exitCode {
 		return exitCodeErr
 	}
 
+	e := repl()
+	return e
+}
+
+func repl() exitCode {
 	line := liner.NewLiner()
 	defer line.Close()
 	line.SetCtrlCAborts(true)
