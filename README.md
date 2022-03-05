@@ -5,12 +5,12 @@ A command line [websh](https://github.com/jiro4989/websh) client with bash-like 
 ## Features
 
 - Run commands on the websh environment without huge Docker image
-- Supports bash / GNU Readline like keybindings, killrings, console clearing
+- Supports bash / GNU Readline like editing, console clearing (`Ctrl-L`), history searching (`Ctrl-R`)
 
 
 ## Usage
 
-help message:
+### Help message
 
 ```
 $ websh-prompt
@@ -23,6 +23,8 @@ Application Options:
 Help Options:
   -h, --help     Show this help message
 ```
+
+### How to use
 
 Just run the `websh-prompt` then you'll be promped. Enter the command you want, the result will be desplayed.
 To quit interactive mode, type `exit` or `Ctrl-D`.
@@ -42,13 +44,15 @@ websh# figlet -f slant websh
 websh# exit
 [you@your-computer]$ 
 ```
+## Line Editing
 
+To see the line editing key bindings, see the README on [peterh/liner](https://github.com/peterh/liner#readme).
 
 ## Installation
 
 Clone this repository then run `go install`.
 
-## Thanks
+## Special Thanks
 
 [jiro4989/websh](https://github.com/jiro4989/websh) 
 
