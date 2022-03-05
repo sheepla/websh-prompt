@@ -12,12 +12,12 @@ A command line [websh](https://github.com/jiro4989/websh) client with bash-like 
 ### Help message
 
 ```
-$ websh-prompt
 Usage:
   websh-prompt [OPTIONS]
 
 Application Options:
   -V, --version  Show version
+  -t, --test     Test websh server status
 
 Help Options:
   -h, --help     Show this help message
@@ -103,6 +103,10 @@ Developing on `v1.17.7 linux/amd64`.
 ## Special Thanks
 
 [jiro4989/websh](https://github.com/jiro4989/websh) 
+
+## Contributing
+
+Welcome 💖
 
 ## LICENSE
 
