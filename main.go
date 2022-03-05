@@ -21,9 +21,9 @@ const (
 
 const helpMessage = `
 COMMANDS
-    exit    Quit interactive UI
-    help    Show help message
-    version Show version
+  exit    Quit interactive UI
+  help    Show help message
+  version Show version
 
 KEY BINDINGS
   Ctrl-A, Home          Move cursor to beginning of line
@@ -48,6 +48,7 @@ KEY BINDINGS
   Ctrl-Y                Paste from Yank buffer (Alt-Y to paste next yank instead)
   Tab                   Next completion
   Shift-Tab             (after Tab) Previous completion
+
 `
 
 type exitCode int
