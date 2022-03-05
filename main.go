@@ -4,51 +4,52 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/peterh/liner"
 	"github.com/jessevdk/go-flags"
+	"github.com/peterh/liner"
 	"github.com/sheepla/websh-prompt/client"
 )
 
 const (
-    appName = "websh-prompt"
-    appUsage= "[OPTIONS]"
-    appVersion = "0.0.1"
+	appName    = "websh-prompt"
+	appUsage   = "[OPTIONS]"
+	appVersion = "0.0.1"
 )
 
 type exitCode int
+
 const (
-    exitCodeOK exitCode = iota
-    exitCodeErr
+	exitCodeOK exitCode = iota
+	exitCodeErr
 )
 
 type options struct {
-    Version bool `short:"V" long:"version" description:"Show version"`
+	Version bool `short:"V" long:"version" description:"Show version"`
 }
 
 func main() {
-    os.Exit(int(Main(os.Args[1:])))
+	os.Exit(int(Main(os.Args[1:])))
 }
 
 func Main(args []string) exitCode {
-    var opts options
-    parser := flags.NewParser(&opts, flags.Default)
-    args, err := parser.ParseArgs(args)
-    if err != nil {
-        if flags.WroteHelp(err) {
-            return exitCodeOK
-        } else {
-            fmt.Fprintln(os.Stderr, "Argument parsing failed.")
-            return exitCodeErr
-        }
-    }
-    
-    if len(args) >= 1 {
-        fmt.Fprintln(os.Stderr, "Too many arguments.")
-        return exitCodeErr
-    }
+	var opts options
+	parser := flags.NewParser(&opts, flags.Default)
+	args, err := parser.ParseArgs(args)
+	if err != nil {
+		if flags.WroteHelp(err) {
+			return exitCodeOK
+		} else {
+			fmt.Fprintln(os.Stderr, "Argument parsing failed.")
+			return exitCodeErr
+		}
+	}
 
-    parser.Name = appName
-    parser.Usage = appUsage
+	if len(args) >= 1 {
+		fmt.Fprintln(os.Stderr, "Too many arguments.")
+		return exitCodeErr
+	}
+
+	parser.Name = appName
+	parser.Usage = appUsage
 
 	line := liner.NewLiner()
 	defer line.Close()
@@ -57,16 +58,16 @@ func Main(args []string) exitCode {
 	for {
 		code, err := line.Prompt("websh# ")
 		if err != nil {
-            fmt.Fprintln(os.Stderr, err)
-            return exitCodeErr
+			fmt.Fprintln(os.Stderr, err)
+			return exitCodeErr
 		}
 		if code == "" {
 			continue
 		}
 
-        if code == "exit" {
-            return exitCodeOK
-        }
+		if code == "exit" {
+			return exitCodeOK
+		}
 
 		p := &client.Param{
 			Code: code,
