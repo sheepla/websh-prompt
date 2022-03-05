@@ -5,6 +5,7 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"strings"
 
 	"github.com/jessevdk/go-flags"
 	"github.com/mattn/go-colorable"
@@ -69,6 +70,8 @@ var (
 	historyFile     = filepath.Join(os.TempDir(), historyFileName)
 )
 
+var commands = []string{"exit", "help", "version"}
+
 func main() {
 	os.Exit(int(Main(os.Args[1:])))
 }
@@ -89,7 +92,7 @@ func Main(args []string) exitCode {
 	}
 
 	if opts.Version {
-		fmt.Printf("%s v%s\n", appName, appVersion)
+		version()
 		return exitCodeOK
 	}
 
@@ -102,6 +105,10 @@ func Main(args []string) exitCode {
 	return e
 }
 
+func version() {
+	fmt.Printf("%s v%s\n", appName, appVersion)
+}
+
 func repl() exitCode {
 	line := liner.NewLiner()
 	defer line.Close()
@@ -109,6 +116,16 @@ func repl() exitCode {
 	// Set liner option
 	line.SetCtrlCAborts(true)
 	line.SetMultiLineMode(true)
+
+	// Set tab completion
+	line.SetCompleter(func(line string) (c []string) {
+		for _, n := range commands {
+			if strings.HasPrefix(n, strings.ToLower(line)) {
+				c = append(c, n)
+			}
+		}
+		return
+	})
 
 	// Load history file
 	if f, err := os.Open(historyFile); err == nil {
@@ -135,6 +152,11 @@ func repl() exitCode {
 
 		if code == "exit" {
 			break
+		}
+
+		if code == "version" {
+			version()
+			continue
 		}
 
 		p := client.Param{
