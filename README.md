@@ -109,7 +109,7 @@ Copy download link URL from [Latest Release](https://github.com/sheepla/websh-pr
 ```bash
 relma init                           # Setup
 relma install {{DOWNLOAD_LINK_URL}}  # Install
-ls -l $(ghg bin)/websh-prompt        # It will exists executable
+ls -l $(relma root)/bin/websh-prompt # It will exists executable
 ```
 
 with [gh-install](https://github.com/redraw/gh-install)
