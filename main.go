@@ -195,7 +195,7 @@ func repl() exitCode {
 
 	// Write history into file
 	if f, err := os.Create(historyFile); err != nil {
-		log.Println("Error writiing history file:", err)
+		log.Println(err)
 	} else {
 		line.WriteHistory(f)
 	}
