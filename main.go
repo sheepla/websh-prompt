@@ -175,14 +175,12 @@ func repl() exitCode {
 			continue
 		}
 
-		p := client.Param{
-			Code: code,
-		}
-		result, err := client.Post(p)
+		result, err := run(code)
 		if err != nil {
 			log.Println(err)
 			continue
 		}
+
 		if result.Stdout != "" {
 			fmt.Fprintln(stdout, result.Stdout)
 		}
@@ -201,4 +199,10 @@ func repl() exitCode {
 	}
 
 	return exitCodeOK
+}
+
+func run(code string) (*client.Result, error) {
+	return client.Post(client.Param{
+		Code: code,
+	})
 }
