@@ -7,6 +7,7 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/fatih/color"
 	"github.com/jessevdk/go-flags"
 	"github.com/mattn/go-colorable"
 	"github.com/peterh/liner"
@@ -151,7 +152,7 @@ func repl() exitCode {
 	fmt.Printf("%s v%s\nType `help` to show help message. Type `exit` to quit.\n\n", appName, appVersion)
 
 	for {
-		code, err := line.Prompt("websh# ")
+		code, err := line.Prompt("# ")
 		if err != nil {
 			log.Println(err)
 			return exitCodeErrPrompt
@@ -185,7 +186,7 @@ func repl() exitCode {
 			fmt.Fprintln(stdout, result.Stdout)
 		}
 		if result.Stderr != "" {
-			fmt.Fprintln(stderr, result.Stderr)
+			fmt.Fprintln(stderr, color.HiRedString(result.Stderr))
 		}
 
 		line.AppendHistory(code)
