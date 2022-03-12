@@ -25,6 +25,7 @@ COMMANDS
   exit    Quit interactive UI
   help    Show help message
   version Show version
+  ping    Test websh server status
 
 KEY BINDINGS
   Ctrl-A, Home          Move cursor to beginning of line
@@ -77,7 +78,7 @@ var (
 	historyFile     = filepath.Join(os.TempDir(), historyFileName)
 )
 
-var commands = []string{"exit", "help", "version"}
+var commands = []string{"exit", "help", "version", "ping"}
 
 func main() {
 	os.Exit(int(Main(os.Args[1:])))
@@ -104,7 +105,7 @@ func Main(args []string) exitCode {
 	}
 
 	if opts.Test {
-		result, err := client.Ping()
+		result, err := ping()
 		if err != nil {
 			log.Println(err)
 			return exitCodeErrPing
@@ -176,6 +177,17 @@ func repl() exitCode {
 			continue
 		}
 
+		if code == "ping" {
+			result, err := ping()
+			if err != nil {
+				fmt.Fprintln(stderr, color.HiRedString(err.Error()))
+			}
+			if result.Status != "" {
+				fmt.Fprintln(stdout, result.Status)
+			}
+			continue
+		}
+
 		result, err := run(code)
 		if err != nil {
 			log.Println(err)
@@ -206,4 +218,8 @@ func run(code string) (*client.Result, error) {
 	return client.Post(client.Param{
 		Code: code,
 	})
+}
+
+func ping() (*client.PingResult, error) {
+	return client.Ping()
 }
