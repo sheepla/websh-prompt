@@ -119,8 +119,7 @@ func Main(args []string) exitCode {
 		return exitCodeErrArgs
 	}
 
-	e := repl()
-	return e
+	return repl()
 }
 
 func version() {
@@ -152,6 +151,7 @@ func repl() exitCode {
 
 	fmt.Printf("%s v%s\nType `help` to show help message. Type `exit` to quit.\n\n", appName, appVersion)
 
+REPL:
 	for {
 		code, err := line.Prompt("# ")
 		if err != nil {
@@ -159,25 +159,18 @@ func repl() exitCode {
 			return exitCodeErrPrompt
 		}
 
-		if code == "" {
-			continue
-		}
-
-		if code == "help" {
+		switch code {
+		case "exit":
+			break REPL
+		case "help":
 			fmt.Print(helpMessage)
 			continue
-		}
-
-		if code == "exit" {
-			break
-		}
-
-		if code == "version" {
+		case "version":
 			version()
 			continue
-		}
-
-		if code == "ping" {
+		case "":
+			continue
+		case "ping":
 			result, err := ping()
 			if err != nil {
 				fmt.Fprintln(stderr, color.HiRedString(err.Error()))
@@ -186,22 +179,21 @@ func repl() exitCode {
 				fmt.Fprintln(stdout, result.Status)
 			}
 			continue
-		}
-
-		result, err := run(code)
-		if err != nil {
-			log.Println(err)
+		default:
+			result, err := run(code)
+			if err != nil {
+				log.Println(err)
+				continue
+			}
+			if result.Stdout != "" {
+				fmt.Fprintln(stdout, result.Stdout)
+			}
+			if result.Stderr != "" {
+				fmt.Fprintln(stderr, color.HiRedString(result.Stderr))
+			}
+			line.AppendHistory(code)
 			continue
 		}
-
-		if result.Stdout != "" {
-			fmt.Fprintln(stdout, result.Stdout)
-		}
-		if result.Stderr != "" {
-			fmt.Fprintln(stderr, color.HiRedString(result.Stderr))
-		}
-
-		line.AppendHistory(code)
 	}
 
 	// Write history into file
