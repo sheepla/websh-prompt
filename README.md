@@ -11,11 +11,13 @@
 
 </div>
 
+
 <div align="center">
 
 # 💻 websh-prompt
 
 </div>
+
 
 <div align="center">
 
@@ -25,6 +27,12 @@ A command line [websh](https://github.com/jiro4989/websh) client with bash-like 
 ![](https://img.shields.io/static/v1?label=License&message=MIT&color=blue&style=flat-square)
 
 </div>
+
+
+<div align="center">
+<img src="https://user-images.githubusercontent.com/62412884/159151159-d3b18f14-f714-43fc-a43d-0e81bbf9d9f8.png" width="70%">
+</div>
+
 
 ## Features
 
