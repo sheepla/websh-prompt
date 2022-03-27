@@ -17,7 +17,7 @@ import (
 const (
 	appName    = "websh-prompt"
 	appUsage   = "[OPTIONS]"
-	appVersion = "0.0.4"
+	appVersion = "0.0.5"
 )
 
 const helpMessage = `
