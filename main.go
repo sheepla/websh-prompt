@@ -191,9 +191,11 @@ REPL:
 			if result.Stderr != "" {
 				fmt.Fprintln(stderr, color.HiRedString(result.Stderr))
 			}
+			printPrompt(result)
 			line.AppendHistory(code)
 			continue
 		}
+
 	}
 
 	// Write history into file
@@ -214,4 +216,12 @@ func run(code string) (*client.Result, error) {
 
 func ping() (*client.PingResult, error) {
 	return client.Ping()
+}
+
+func printPrompt(result *client.Result) {
+	fmt.Fprintf(stdout,
+		"%s %s\n",
+		color.New(color.FgBlue, color.Bold).Sprint("websh"),
+		color.New(color.FgCyan, color.Bold).Sprint(result.ElapsedTime),
+	)
 }
