@@ -89,6 +89,7 @@ The command line execution history is saved in `websh-prompt-history.txt` under 
 - `help`: Show help message.
 - `exit`: Quit interactive UI
 - `version`: Show version
+- `ping`: Test websh server status
 
 ## Installation
 
