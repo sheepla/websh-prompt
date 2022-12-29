@@ -1,7 +1,9 @@
 package main
 
 import (
+	"errors"
 	"fmt"
+	"io"
 	"log"
 	"os"
 	"path/filepath"
@@ -93,14 +95,14 @@ func Main(args []string) exitCode {
 	if err != nil {
 		if flags.WroteHelp(err) {
 			return exitCodeOK
-		} else {
-			log.Println("Argument parsing failed.")
-			return exitCodeErrArgs
 		}
+		log.Println("Argument parsing failed.")
+		return exitCodeErrArgs
 	}
 
 	if opts.Version {
-		version()
+		printVersion()
+
 		return exitCodeOK
 	}
 
@@ -110,7 +112,9 @@ func Main(args []string) exitCode {
 			log.Println(err)
 			return exitCodeErrPing
 		}
+
 		fmt.Println(result.Status)
+
 		return exitCodeOK
 	}
 
@@ -122,7 +126,7 @@ func Main(args []string) exitCode {
 	return repl()
 }
 
-func version() {
+func printVersion() {
 	fmt.Printf("%s v%s\n", appName, appVersion)
 }
 
@@ -141,7 +145,7 @@ func repl() exitCode {
 				c = append(c, n)
 			}
 		}
-		return
+		return []string{}
 	})
 
 	// Load history file
@@ -155,6 +159,10 @@ REPL:
 	for {
 		code, err := line.Prompt("# ")
 		if err != nil {
+			if errors.Is(err, io.EOF) {
+				return exitCodeOK
+			}
+
 			log.Println(err)
 			return exitCodeErrPrompt
 		}
@@ -164,11 +172,14 @@ REPL:
 			break REPL
 		case "help":
 			fmt.Print(helpMessage)
+
 			continue
 		case "version":
-			version()
+			printVersion()
+
 			continue
 		case "":
+
 			continue
 		case "ping":
 			result, err := ping()
@@ -178,6 +189,7 @@ REPL:
 			if result.Status != "" {
 				fmt.Fprintln(stdout, result.Status)
 			}
+
 			continue
 		default:
 			result, err := run(code)
@@ -191,8 +203,10 @@ REPL:
 			if result.Stderr != "" {
 				fmt.Fprintln(stderr, color.HiRedString(result.Stderr))
 			}
+
 			printPrompt(result)
 			line.AppendHistory(code)
+
 			continue
 		}
 
