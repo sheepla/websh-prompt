@@ -52,7 +52,6 @@ KEY BINDINGS
   Ctrl-Y                Paste from Yank buffer (Alt-Y to paste next yank instead)
   Tab                   Next completion
   Shift-Tab             (after Tab) Previous completion
-
 `
 
 type exitCode int
@@ -101,7 +100,7 @@ func Main(args []string) exitCode {
 	}
 
 	if opts.Version {
-		printVersion()
+		fmt.Fprintf(stdout, "%s v%s\n", appName, appVersion)
 
 		return exitCodeOK
 	}
@@ -126,10 +125,7 @@ func Main(args []string) exitCode {
 	return repl()
 }
 
-func printVersion() {
-	fmt.Printf("%s v%s\n", appName, appVersion)
-}
-
+//nolint:funlen
 func repl() exitCode {
 	line := liner.NewLiner()
 	defer line.Close()
@@ -150,7 +146,9 @@ func repl() exitCode {
 
 	// Load history file
 	if f, err := os.Open(historyFile); err == nil {
-		line.ReadHistory(f)
+		if _, err := line.ReadHistory(f); err != nil {
+			fmt.Fprintln(stderr, err)
+		}
 	}
 
 	fmt.Printf("%s v%s\nType `help` to show help message. Type `exit` to quit.\n\n", appName, appVersion)
@@ -171,11 +169,11 @@ REPL:
 		case "exit":
 			break REPL
 		case "help":
-			fmt.Print(helpMessage)
+			fmt.Fprint(stdout, helpMessage)
 
 			continue
 		case "version":
-			printVersion()
+			fmt.Fprintf(stdout, "%s v%s\n", appName, appVersion)
 
 			continue
 		case "":
@@ -194,9 +192,11 @@ REPL:
 		default:
 			result, err := run(code)
 			if err != nil {
-				log.Println(err)
+				fmt.Fprintln(stderr, err)
+
 				continue
 			}
+
 			if result.Stdout != "" {
 				fmt.Fprintln(stdout, result.Stdout)
 			}
