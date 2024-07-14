@@ -14,7 +14,9 @@
 
 <div align="center">
 
-# 💻 websh-prompt
+# 💻 websh-prompt (Archived)
+
+*The **websh** service is no longer available. Thank you very much for the operation so far. With the end of service, this repository is archived as well.*
 
 </div>
 
